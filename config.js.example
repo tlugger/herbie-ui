@@ -1,0 +1,9 @@
+export default {
+  PK_HOST: '',
+  PK_PORT: 443,
+  PK_SECURE: true,
+  PK_JWT: '',
+  WS_HOST: '',
+  WS_PORT: 443,
+  WS_SECURE: true,
+};
