@@ -6,10 +6,10 @@ class Page extends Component {
   state = {
     soilMoisture: false,
     temperature: 0.0,
-    historicalTemperature: [],
+    historicalTemperature: Array(30).fill(0.0),
     humidity: 0.0,
-    historicalHumidity: [],
-    chartLabels: [],
+    historicalHumidity: Array(30).fill(0.0),
+    chartLabels: Array(30).fill(''),
     last_watered: [],
     pump_status: false,
   };
@@ -25,6 +25,7 @@ class Page extends Component {
   handleSoil = (data) => {
     const json = new TextDecoder().decode(data);
     const { soil_moist: isMoist } = JSON.parse(json)[0];
+
     this.setState({ soilMoisture: isMoist });
   };
 
@@ -32,10 +33,14 @@ class Page extends Component {
     const { historicalTemperature, historicalHumidity, chartLabels } = this.state;
     const json = new TextDecoder().decode(data);
     const { temperature: temp, humidity: humid } = JSON.parse(json)[0];
+
+    historicalHumidity.shift();
+    historicalTemperature.shift();
+
     historicalTemperature.push(temp.toFixed(4));
     historicalHumidity.push(humid.toFixed(4));
-    chartLabels.push('');
-    this.setState({ temperature: temp, humidity: humid, historicalTemperature, historicalHumidity, chartLabels });
+
+    this.setState({ temperature: temp, humidity: humid, historicalTemperature, historicalHumidity });
   };
 
   handlePump = (data) => {
@@ -48,7 +53,6 @@ class Page extends Component {
   handlePumpStatus = (data) => {
     const json = new TextDecoder().decode(data);
     const { status: val } = JSON.parse(json)[0];
-    console.log("handling value: ", val);
     this.setState({ pump_status: val });
   };
 
@@ -84,6 +88,9 @@ class Page extends Component {
           <hr className="my-3" />
           <Row>
             <Col md="3" sm="6" className="text-center mb-3 text-nowrap">
+              <p>
+                <br />
+              </p>
               <img src={soilMoisture ? "/images/plant.svg" : "/images/plant-wilt.svg"} />
             </Col>
             <Col md="5" sm="6" className="text-center mb-3 text-nowrap">
@@ -106,6 +113,9 @@ class Page extends Component {
               <Loader color={soilMoisture ? 'success' : 'warning'} />
             </Col>
             <Col md="3" sm="6" className="text-center mb-3 text-nowrap">
+              <p>
+                <br />
+              </p>
               <div>
                 <b>Last Watered: </b>{last_watered}
               </div>
