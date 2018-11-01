@@ -15,7 +15,7 @@ class App extends Component {
       <div>
         <Navbar id="app-nav" dark fixed="top" expand="md">
           <div className="navbar-brand">
-            <NavLink to="/"><div id="logo" /></NavLink>
+            <a href="https://niolabs.com"><div id="logo" /></a>
           </div>
           <NavbarToggler right onClick={() => this.setState({ navOpen: !navOpen })} isOpen={navOpen} />
           <Collapse isOpen={navOpen} navbar>

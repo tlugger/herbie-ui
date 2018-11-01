@@ -14,7 +14,6 @@ export class PubkeeperProvider extends React.Component {
       jwt: config.PK_JWT,
       brews: [new WebSocketBrew({ brewerConfig: { hostname: config.WS_HOST, port: config.WS_PORT, secure: config.WS_SECURE } })],
     }).connect();
-    this.pkClient.addBrewer('ui_scaffold.example_brew', brewer => setInterval(() => brewer.brewJSON([{ time: new Date() }]), 1000));
     this.setState({ connected: true });
   };
 

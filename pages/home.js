@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardBody, Chart, Col, Loader, Progress, Row } from '@nio/ui-kit';
+import { Card, CardBody, Chart, Col, Loader, Row, ToggleButton } from '@nio/ui-kit';
 import { withPubkeeper } from '../providers/pubkeeper';
 
 class Page extends Component {
@@ -10,7 +10,8 @@ class Page extends Component {
     humidity: 0.0,
     historicalHumidity: [],
     chartLabels: [],
-    last_watered: new Date(),
+    last_watered: [],
+    pump_status: false,
   };
 
   componentDidMount = () => {
@@ -18,6 +19,7 @@ class Page extends Component {
     pkClient.addPatron('herbert.soil.value', patron => patron.on('message', this.handleSoil));
     pkClient.addPatron('herbert.ht.value', patron => patron.on('message', this.handleHT));
     pkClient.addPatron('herbert.pump.value', patron => patron.on('message', this.handlePump));
+    pkClient.addPatron('herbert.pump.status', patron => patron.on('message', this.handlePumpStatus));
   };
 
   handleSoil = (data) => {
@@ -40,15 +42,18 @@ class Page extends Component {
     const json = new TextDecoder().decode(data);
     const { last_watered: watered } = JSON.parse(json)[0];
     const water_time = new Date(watered);
-    this.setState({ last_watered: water_time });
+    this.setState({ last_watered: water_time.toLocaleString() });
   };
 
-  // brewCurrentTimestamp = () => {
-  //   this.brewer.brewJSON([{ newBrewedTime: new Date() }]);
-  // };
+  handlePumpStatus = (data) => {
+    const json = new TextDecoder().decode(data);
+    const { status: val } = JSON.parse(json)[0];
+    console.log("handling value: ", val);
+    this.setState({ pump_status: val });
+  };
 
   render() {
-    const { soilMoisture, temperature, humidity, historicalHumidity, historicalTemperature, chartLabels, last_watered } = this.state;
+    const { soilMoisture, temperature, humidity, historicalHumidity, historicalTemperature, chartLabels, last_watered, pump_status } = this.state;
 
     return (
       <Card>
@@ -83,7 +88,7 @@ class Page extends Component {
             </Col>
             <Col md="5" sm="6" className="text-center mb-3 text-nowrap">
               <p>
-                <b>Temperature:</b> {temperature.toFixed(2)}&ordm;F <b>Humidty:</b> {humidity.toFixed(2)}%
+                <b>Temperature:</b> {temperature.toFixed(2)}&ordm;C <b>Humidty:</b> {humidity.toFixed(2)}%
               </p>
               <Chart
                 title=""
@@ -102,7 +107,16 @@ class Page extends Component {
             </Col>
             <Col md="3" sm="6" className="text-center mb-3 text-nowrap">
               <div>
-                <b>Last Watered: </b>{last_watered.toLocaleString()}
+                <b>Last Watered: </b>{last_watered}
+              </div>
+              <br />
+              <br />
+              <div>
+                <ToggleButton
+                  inactiveLabel={<b>Off</b>}
+                  activeLabel={<b>On</b>}
+                  value={pump_status}
+                />
               </div>
             </Col>
           </Row>
