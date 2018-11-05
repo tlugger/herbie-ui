@@ -4,7 +4,7 @@ import { withPubkeeper } from '../providers/pubkeeper';
 
 class Page extends Component {
   state = {
-    soilMoisture: false,
+    soilMoisture: 0.0,
     temperature: 0.0,
     historicalTemperature: Array(30).fill(0.0),
     humidity: 0.0,
@@ -26,7 +26,7 @@ class Page extends Component {
     const json = new TextDecoder().decode(data);
     const { soil_moist: isMoist } = JSON.parse(json)[0];
 
-    this.setState({ soilMoisture: isMoist });
+    this.setState({ soilMoisture: parseFloat(isMoist) });
   };
 
   handleHT = (data) => {
@@ -91,7 +91,7 @@ class Page extends Component {
               <p>
                 <br />
               </p>
-              <img src={soilMoisture ? "/images/plant.svg" : "/images/plant-wilt.svg"} />
+              <img src={soilMoisture >= 2.5 ? "/images/plant.svg" : "/images/plant-wilt.svg"} />
             </Col>
             <Col md="5" sm="6" className="text-center mb-3 text-nowrap">
               <p>
@@ -100,7 +100,7 @@ class Page extends Component {
               <Chart
                 title=""
                 type="line"
-                data={{ "labels": chartLabels, "datasets": [{ "values": historicalTemperature }, { "values": historicalHumidity }] }}
+                data={{ "labels": chartLabels, "datasets": [{ "values": historicalHumidity }, { "values": historicalTemperature }] }}
                 show_dots={false}
                 heatline
                 region_fill
@@ -110,15 +110,19 @@ class Page extends Component {
               <hr />
             </Col>
             <Col md="1" sm="6" className="text-center mb-3 text-nowrap">
-              <Loader color={soilMoisture ? 'success' : 'warning'} />
+              <p>
+                <b>Moisture Value: </b>{soilMoisture.toFixed(3)}
+              </p>
+              <br />
+              <br />
+              <div className="loader-div">
+                <Loader color={soilMoisture >= 2.5 ? 'success' : 'warning'} />
+              </div>
             </Col>
             <Col md="3" sm="6" className="text-center mb-3 text-nowrap">
               <p>
-                <br />
-              </p>
-              <div>
                 <b>Last Watered: </b>{last_watered}
-              </div>
+              </p>
               <br />
               <br />
               <div>
