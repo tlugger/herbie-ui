@@ -66,7 +66,7 @@ class Page extends Component {
           A Pubkeeper powered dashboard for the status of Tyler's connected desk plant with automated irrigation.
           <hr />
           <Row>
-            <Col md="2" className="text-center mb-3 text-nowrap">
+            <Col md="2" className="text-center mb-3">
               <Card className="plant-card">
                 <CardBody>
                   <b>Plant Health</b>
@@ -74,11 +74,11 @@ class Page extends Component {
                   <p>
                     <br />
                   </p>
-                  <img src={soilMoisture >= 2.601 ? "/images/plant.svg" : "/images/plant-wilt.svg"} />
+                  <img className="plant-image" src={soilMoisture >= 2.601 ? "/images/plant.svg" : "/images/plant-wilt.svg"} />
                 </CardBody>
               </Card>
             </Col>
-            <Col md="5" className="text-center mb-3 text-nowrap">
+            <Col md="5" className="text-center mb-3">
               <Card className="plant-card">
                 <CardBody>
                   <b>Plant Habitat</b>
@@ -97,26 +97,28 @@ class Page extends Component {
                 </CardBody>
               </Card>
             </Col>
-            <Col md="2" className="text-center mb-3 text-nowrap">
+            <Col md="2" className="text-center mb-3">
               <Card className="plant-card">
                 <CardBody>
                   <b>Soil Moisture</b>
                   <hr />
                   <b>Value: </b>{soilMoisture.toFixed(3)}
                   <br />
-                  <br />
                   <div className="loader-div">
                     <Loader color={soilMoisture >= 2.601 ? 'success' : 'warning'} />
                   </div>
+                  <br />
+                  <br />
                 </CardBody>
               </Card>
             </Col>
-            <Col md="3" className="text-center mb-3 text-nowrap">
+            <Col md="3" className="text-center mb-3">
               <Card className="plant-card">
                 <CardBody>
                   <b>Plant Irrigation</b>
                   <hr />
                   <b>Last Watered: </b>{last_watered}
+                  <br />
                   <br />
                   <br />
                   <div>
