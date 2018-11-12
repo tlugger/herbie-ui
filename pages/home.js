@@ -66,72 +66,69 @@ class Page extends Component {
           A Pubkeeper powered dashboard for the status of Tyler's connected desk plant with automated irrigation.
           <hr />
           <Row>
-            <Col md="3" className="text-center mb-3 text-nowrap">
-              <b>Plant Health</b>
+            <Col md="2" className="text-center mb-3 text-nowrap">
+              <Card className="plant-card">
+                <CardBody>
+                  <b>Plant Health</b>
+                  <hr />
+                  <p>
+                    <br />
+                  </p>
+                  <img src={soilMoisture >= 2.5 ? "/images/plant.svg" : "/images/plant-wilt.svg"} />
+                </CardBody>
+              </Card>
             </Col>
             <Col md="5" className="text-center mb-3 text-nowrap">
-              <b>Plant Habitat</b>
+              <Card className="plant-card">
+                <CardBody>
+                  <b>Plant Habitat</b>
+                  <hr />
+                  <p>
+                    <b>Temperature:</b> {temperature.toFixed(2)}&ordm;C <b>Humidty:</b> {humidity.toFixed(2)}%"
+                  </p>
+                  <Chart
+                    title=""
+                    type="line"
+                    data={{ "labels": chartLabels, "datasets": [{ "values": historicalHumidity }, { "values": historicalTemperature }] }}
+                    show_dots={false}
+                    heatline
+                    region_fill
+                  />
+                </CardBody>
+              </Card>
             </Col>
-            <Col xs="12" className="d-inline-block d-md-none">
-              <hr />
-            </Col>
-            <Col md="1" className="text-center mb-3 text-nowrap">
-              <b>Soil Moisture</b>
-            </Col>
-            <Col xs="12" className="d-inline-block d-md-none">
-              <hr />
+            <Col md="2" className="text-center mb-3 text-nowrap">
+              <Card className="plant-card">
+                <CardBody>
+                  <b>Soil Moisture</b>
+                  <hr />
+                  <b>Value: </b>{soilMoisture.toFixed(3)}
+                  <br />
+                  <br />
+                  <div className="loader-div">
+                    <Loader color={soilMoisture >= 2.5 ? 'success' : 'warning'} />
+                  </div>
+                </CardBody>
+              </Card>
             </Col>
             <Col md="3" className="text-center mb-3 text-nowrap">
-              <b>Plant Irrigation</b>
-            </Col>
-          </Row>
-          <hr className="my-3" />
-          <Row>
-            <Col md="3" sm="6" className="text-center mb-3 text-nowrap">
-              <p>
-                <br />
-              </p>
-              <img src={soilMoisture >= 2.5 ? "/images/plant.svg" : "/images/plant-wilt.svg"} />
-            </Col>
-            <Col md="5" sm="6" className="text-center mb-3 text-nowrap">
-              <p>
-                <b>Temperature:</b> {temperature.toFixed(2)}&ordm;C <b>Humidty:</b> {humidity.toFixed(2)}%
-              </p>
-              <Chart
-                title=""
-                type="line"
-                data={{ "labels": chartLabels, "datasets": [{ "values": historicalHumidity }, { "values": historicalTemperature }] }}
-                show_dots={false}
-                heatline
-                region_fill
-              />
-            </Col>
-            <Col xs="12" className="d-inline-block d-md-none">
-              <hr />
-            </Col>
-            <Col md="1" sm="6" className="text-center mb-3 text-nowrap">
-              <p>
-                <b>Moisture Value: </b>{soilMoisture.toFixed(3)}
-              </p>
-              <br />
-              <br />
-              <div className="loader-div">
-                <Loader color={soilMoisture >= 2.5 ? 'success' : 'warning'} />
-              </div>
-            </Col>
-            <Col md="3" sm="6" className="text-center mb-3 text-nowrap">
-              <p>
-                <b>Last Watered: </b>{last_watered}
-              </p>
-              <br />
-              <br />
-              <div>
-                <ToggleButton
-                  inactiveLabel={<b>Off</b>}
-                  activeLabel={<b>On</b>}
-                  value={pump_status}
-                />
-              </div>
+              <Card className="plant-card">
+                <CardBody>
+                  <b>Plant Irrigation</b>
+                  <p>
+                    <b>Last Watered: </b>{last_watered}
+                  </p>
+                  <br />
+                  <br />
+                  <div>
+                    <ToggleButton
+                      inactiveLabel={<b>Off</b>}
+                      activeLabel={<b>On</b>}
+                      value={pump_status}
+                    />
+                  </div>
+                </CardBody>
+              </Card>
             </Col>
           </Row>
         </CardBody>
