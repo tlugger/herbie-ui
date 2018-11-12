@@ -74,7 +74,7 @@ class Page extends Component {
                   <p>
                     <br />
                   </p>
-                  <img src={soilMoisture >= 2.5 ? "/images/plant.svg" : "/images/plant-wilt.svg"} />
+                  <img src={soilMoisture >= 2.61 ? "/images/plant.svg" : "/images/plant-wilt.svg"} />
                 </CardBody>
               </Card>
             </Col>
@@ -84,7 +84,7 @@ class Page extends Component {
                   <b>Plant Habitat</b>
                   <hr />
                   <p>
-                    <b>Temperature:</b> {temperature.toFixed(2)}&ordm;C <b>Humidty:</b> {humidity.toFixed(2)}%"
+                    <b>Temperature:</b> {temperature.toFixed(2)}&ordm;C <b>Humidty:</b> {humidity.toFixed(2)}%
                   </p>
                   <Chart
                     title=""
@@ -106,7 +106,7 @@ class Page extends Component {
                   <br />
                   <br />
                   <div className="loader-div">
-                    <Loader color={soilMoisture >= 2.5 ? 'success' : 'warning'} />
+                    <Loader color={soilMoisture >= 2.61 ? 'success' : 'warning'} />
                   </div>
                 </CardBody>
               </Card>
