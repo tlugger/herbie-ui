@@ -74,7 +74,7 @@ class Page extends Component {
                   <p>
                     <br />
                   </p>
-                  <img src={soilMoisture >= 2.61 ? "/images/plant.svg" : "/images/plant-wilt.svg"} />
+                  <img src={soilMoisture >= 2.601 ? "/images/plant.svg" : "/images/plant-wilt.svg"} />
                 </CardBody>
               </Card>
             </Col>
@@ -106,7 +106,7 @@ class Page extends Component {
                   <br />
                   <br />
                   <div className="loader-div">
-                    <Loader color={soilMoisture >= 2.61 ? 'success' : 'warning'} />
+                    <Loader color={soilMoisture >= 2.601 ? 'success' : 'warning'} />
                   </div>
                 </CardBody>
               </Card>
@@ -115,9 +115,8 @@ class Page extends Component {
               <Card className="plant-card">
                 <CardBody>
                   <b>Plant Irrigation</b>
-                  <p>
-                    <b>Last Watered: </b>{last_watered}
-                  </p>
+                  <hr />
+                  <b>Last Watered: </b>{last_watered}
                   <br />
                   <br />
                   <div>
