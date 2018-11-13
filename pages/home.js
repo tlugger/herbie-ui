@@ -62,8 +62,17 @@ class Page extends Component {
     return (
       <Card>
         <CardBody className="p-3">
-          <h2 className="m-0">Herb(ert) the Automated Desk Plant</h2>
-          A Pubkeeper powered dashboard for the status of Tyler's connected desk plant with automated irrigation.
+          <Row>
+            <Col md="11">
+              <h2 className="m-0">Herb(ert) the Automated Desk Plant</h2>
+              <p>
+                A Pubkeeper powered dashboard for the status of Tyler's connected desk plant with automated irrigation.
+              </p>
+            </Col>
+            <Col md="1" className="text-center">
+              <img className="cilantro-image" src="/images/cilantro.svg" alt="" />
+            </Col>
+          </Row>
           <hr />
           <Row>
             <Col md="2" className="text-center mb-3">
@@ -74,7 +83,7 @@ class Page extends Component {
                   <p>
                     <br />
                   </p>
-                  <img className="plant-image" src={soilMoisture >= 2.601 ? "/images/plant.svg" : "/images/plant-wilt.svg"} />
+                  <img className="plant-image" src={soilMoisture >= 2.601 ? '/images/plant.svg' : '/images/plant-wilt.svg'} alt="" />
                 </CardBody>
               </Card>
             </Col>
