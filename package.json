@@ -12,7 +12,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@nio/ui-kit": "^1.6.5",
-    "@pubkeeper/browser-client": "^4.0.0-alpha.3",
+    "@pubkeeper/browser-client": "^4.0.0-rc.5",
     "prop-types": "^15.6.2",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
