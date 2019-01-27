@@ -64,7 +64,7 @@ class Page extends Component {
         <CardBody className="p-3">
           <Row>
             <Col md="11">
-              <h2 className="m-0">Herb(ert) the Automated Desk Plant</h2>
+              <h2 className="m-0">Herb(ert) the Automated House Plant</h2>
               <p>
                 A Pubkeeper powered dashboard for the status of Tyler's connected desk plant with automated irrigation.
               </p>
